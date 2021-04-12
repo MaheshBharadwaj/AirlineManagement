@@ -1,0 +1,8 @@
+flask==1.1.1
+google-api-core==1.23.0
+google-auth-httplib2 
+openpyxl==3.0.6
+google-api-python-client==1.12.8
+google_auth_oauthlib==0.4.2
+Flask-SQLAlchemy==2.4.4
+Flask-Login==0.5.0

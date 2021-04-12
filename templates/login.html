@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.svg')}}" type="image/svg">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/login.css')}}" />
+
+    <!-- Compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+    <!-- Compiled and minified JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+    <title>Login Page</title>
+</head>
+
+<body id="particles-js"></body>
+<div class="animated bounceInDown">
+    <div class="container">
+        <span class="error animated tada" id="msg"></span>
+        <form method="POST" name="form1" class="box" onsubmit="return checkStuff()">
+            <h4>SSNMUN <span>E-Chit System</span></h4>
+            <h5>Sign in to use the E-Chit System</h5>
+            <input type="text" name="regid" placeholder="Registration ID (Eg: HR001)" autocomplete="off">
+            <i class="typcn typcn-eye fas fa-eye-slash active" id="eye"></i>
+            <input type="password" name="password" placeholder="Passsword (Eg: 123456)" id="pwd" autocomplete="off">
+
+            <!-- <label>
+          <input type="checkbox">
+          <span></span>
+          <small class="rmb">Remember me</small>
+        </label> -->
+            <!-- <a href="#" class="forgetpass">Forget Password?</a> -->
+            <input type="submit" value="Sign in" class="btn1">
+        </form>
+    </div>
+    <div class="footer">
+        <span>Made with <i class="fa fa-heart pulse"></i> by SSNMUN Tech tEaM</span>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/e979b53514.js" crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='js/particle.js')}}"></script>
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
+
+</html>
