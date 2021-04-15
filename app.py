@@ -4,6 +4,7 @@ import json
 import copy
 import random
 import time
+from helpers import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -110,6 +111,32 @@ def admin():
     print(current_user.name)
 
     return render_template("403.html", name=current_user.name), 403
+
+
+@app.route("/add-route", methods=['GET', 'POST'])
+@login_required
+def add_route():
+    if current_user.name == 'admin':
+        if request.method == 'GET':
+            return render_template("add_route.html", authors=authors)
+        else:
+            add_route_to_db(request=request)
+            return redirect(url_for("add_route"))
+    else:
+        return render_template("403.html"), 403
+
+
+@app.route("/add-flight", methods=['GET', 'POST'])
+@login_required
+def add_flight():
+    if current_user.name == 'admin':
+        if request.method == 'GET':
+            return render_template("add_flight.html", authors=authors, routes_array=get_all_routes())
+        else:
+            add_flight_to_db(request=request)
+            return redirect(url_for("add_flight"))
+    else:
+        return render_template("403.html"), 403
 
 
 if __name__ == "__main__":

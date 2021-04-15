@@ -1,0 +1,13 @@
+.form-container {
+    padding: 50px;
+    width: 1000px;
+    margin: auto;
+    background-color: var(--navbar-color);
+    color: var(--text-color);
+    border-radius: 10px;
+}
+
+.form-container label,
+.form-container input {
+    font-size: 18px;
+}

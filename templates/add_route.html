@@ -1,0 +1,57 @@
+{% extends "base.html"%} {% block page_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/form.css')}}"> {% endblock %} {%block content%}
+<div class="form-container">
+    <div class="jumbotron">
+        <h1 class="display-4 text-dark text-center">Add Route Page</h1>
+        <br>
+        <p class="lead text-center">
+            <a class="btn btn-success btn-lg" href="/admin" role="button">Back</a>
+        </p>
+    </div>
+    <form method="POST">
+        <div class="form-group">
+            <label for="source_city">Source City</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-arrow-circle-up"></i>
+                    </div>
+                </div>
+                <input id="source_city" name="source_city" placeholder="(Ex) Chennai" type="text" required="required" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dest_city">Destination City</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-arrow-circle-down"></i>
+                    </div>
+                </div>
+                <input id="dest_city" name="dest_city" placeholder="(Ex) Chennai" type="text" required="required" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="add_rev">
+                    <label for="checkbox_0" class="custom-control-label">Add reverse</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="distance">Distance</label>
+            <div class="input-group">
+                <input id="distance" name="distance" placeholder="1500" type="text" aria-describedby="distanceHelpBlock" required="required" class="form-control">
+                <div class="input-group-append">
+                    <div class="input-group-text">KM</div>
+                </div>
+            </div>
+            <span id="distanceHelpBlock" class="form-text text-muted">Enter distance in Kilometers</span>
+        </div>
+        <div class="form-group">
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
