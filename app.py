@@ -113,6 +113,17 @@ def admin():
     return render_template("403.html", name=current_user.name), 403
 
 
+@app.route("/admin-logout")
+@login_required
+def admin_logout():
+
+    if current_user.name == 'admin':
+        logout_user()
+        return redirect(url_for('login'))
+
+    return render_template("403.html", name=current_user.name), 403
+
+
 @app.route("/add-route", methods=['GET', 'POST'])
 @login_required
 def add_route():
