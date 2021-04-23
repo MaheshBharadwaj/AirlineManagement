@@ -40,8 +40,14 @@ class User(UserMixin, db.Model):
     # primary keys are required by SQLAlchemy
     id = db.Column(db.String(20), primary_key=True)
     email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(150))
     name = db.Column(db.String(100))
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 
 db.create_all(app=app)
@@ -66,33 +72,47 @@ def index():
         )
 
 
-@app.route("/test")
-def test():
-    return render_template("403.html"), 403
+@app.route("/sign-up", methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template("register.html", popup=False)
+
+    uname = request.form.get("uname")
+    email = request.form.get("email")
+    password = request.form.get("pwd1")
+    print('Email: ', email)
+    user_check = User.query.filter_by(email=email).first()
+    print('user_check: ', user_check)
+    if user_check is not None:
+        return render_template("register.html", popup=True)
+
+    user = User(id=generate_password_hash(email)
+                [34:55], email=email, name=uname)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for("login"))
 
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("login.html", popup_email=False, popup_password=False)
 
 
 @app.route("/login", methods=["POST"])
 def login_post():
-    regid = request.form.get("regid")
+    email = request.form.get("email")
     password = request.form.get("password")
+    print("password: ", password)
     remember = True  # if request.form.get('remember') else False
-    print("regid: %s\tpass: %s" % (regid, password))
-    user = User.query.filter_by(name=regid).first()
-    print('User:', user)
+
+    user = User.query.filter_by(email=email).first()
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
-    if not user or not check_password(user.password, password):
-        flash("Please check your login details and try again.")
-        print("Please check your login details and try again.")
-
-        # print('incorrect pass actual pass: ', user.password)
-        # if user doesn't exist or password is wrong, reload the page
-        return redirect(url_for("login"))
+    if user is None:
+        return render_template("login.html", popup_email=True, popup_password=False)
+    if user.check_password(password) == False:
+        return render_template("login.html", popup_email=False, popup_password=True)
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)

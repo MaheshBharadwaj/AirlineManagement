@@ -45,7 +45,7 @@ a:focus {
     background: var(--navbar-color) !important;
     border: none;
     border-radius: 0;
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
     font-size: 24px;
     color: var(--text-color);
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
@@ -228,10 +228,6 @@ ul ul a {
     position: absolute;
 }
 
-.jumbotron {
-    border-radius: 0;
-}
-
 
 /* HOMEPAGE TITLE JUMBOTRON (WITH MUN LOGO) */
 
@@ -239,7 +235,7 @@ ul ul a {
     /* background: #cddde4; */
     background: var(--primary-dark);
     background-image: url(../images/colourlogo_withdatenew.png);
-    height: calc(80vh - 70px);
+    height: calc(100vh - 70px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -501,48 +497,6 @@ footer {
 }
 
 
-/*chevron-base*/
-
-.footer-distributed .footer-chevron {
-    width: 100%;
-    height: 3rem;
-    text-align: center;
-    background-color: #0000cc;
-    padding: 0.5rem 0;
-    position: absolute;
-    color: lightseagreen;
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eee;
-    top: -2.5rem;
-    right: 5rem;
-    border-radius: 100%;
-    display: flex;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.footer-distributed .footer-chevron .up {
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eee;
-    top: -2.5rem;
-    right: 5rem;
-    border-radius: 100%;
-    display: flex;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.footer-distributed .footer-chevron i {
-    color: #4e3175;
-    font-size: 2rem;
-    margin: auto;
-}
-
-
 /* Footer Right */
 
 .footer-distributed .footer-right {
@@ -674,218 +628,10 @@ footer {
 }
 
 .why {
-    padding-top: 150px;
-    text-transform: uppercase;
-    margin: 24px;
-    text-align: center;
+    margin: 20px;
     color: #EEE;
 }
 
 .marketing h4 {
     color: var(--secondary);
-}
-
-
-/*copyright*/
-
-.copyright {
-    width: 100%;
-    height: 3rem;
-    text-align: center;
-    background-color: #0000cc;
-    padding: 0.5rem 0;
-    position: absolute;
-    color: lightseagreen;
-}
-
-.up {
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eee;
-    top: -2.5rem;
-    right: 5rem;
-    border-radius: 100%;
-    display: flex;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.up i {
-    color: #4e3175;
-    font-size: 2rem;
-    margin: auto;
-}
-
-.copyright p {
-    font-size: 1.4rem;
-}
-
-
-/* trial
-.exintro {
-    background-color: rgb(167, 167, 167);
-
-}
-.exintro h3{
-text-align: center;
-margin-top: 2rem;
-font-size: 3rem;
-color: #fff;
-}
-.exintro p{
-    text-align: center;
-    font-size: 2rem;
-    color: #fff;
-}
-.extra {
-    margin-top: -1rem;
-    display: flex;
-    background-color: rgb(167, 167, 167);
-}
-.extra .box{
-width: 23rem;
-height: 22rem;
-background-color: #ffffff;
-margin-left: 1.5rem;
-margin-bottom: 2rem;
-border-radius: 5px;
-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}  
-.extra .box:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  }
-.extra .box:nth-child(1){
-    margin-left: 20rem;
-}
-
-.extra .box p{
-    font-size: 2rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-align: center;
-}
-*/
-
-
-/*Why*/
-
-.row {
-    /* display: flex; */
-    margin: 50px 100px;
-}
-
-.row .box {
-    width: 100%;
-    min-height: 18rem;
-    /* background: linear-gradient(0deg, rgba(2, 0, 36, 1) 2%, rgba(13, 9, 121, 1) 38%, rgba(0, 212, 255, 1) 97%); */
-    background: #1b1a17;
-    /* margin-top: 3rem;
-    margin-left: 1.5rem;
-    margin-bottom: 2rem; */
-    padding: 2rem;
-    margin: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-}
-
-.row .box:hover {
-    box-shadow: 0 14px 28px rgba(68, 85, 90, 0.75), 0 10px 10px rgba(0, 0, 0, 0.32);
-}
-
-.row .box h2 {
-    color: #08d9d6;
-    font-size: 2rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    /* padding-top: 2rem; */
-    text-align: center;
-    /* color: #ffffff; */
-}
-
-.row .box p {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 1.5rem;
-    color: #ffffff;
-}
-
-
-/* .row .box:nth-child(1) {
-    margin-left: 40rem;
-}
-
-.row .box:nth-child(2) {
-    margin-left: 10rem;
-}
-
-.row .box:nth-child(3) {
-    margin-left: 10rem;
-} */
-
-
-/*button*/
-
-.but {
-    margin-top: 3rem;
-    background-color: #f6f8fa;
-    color: black;
-    font-size: 2rem;
-    width: 15rem;
-    height: 7rem;
-    border: 2px solid #97ddec;
-    padding: 0.35em 1.2em;
-    margin: 0 0.3em 0.3em 0;
-    box-shadow: inset 0 0 0 0 #97ddec;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
-}
-
-.but:hover {
-    box-shadow: inset 400px 0 0 0 #0899b8;
-    color: #f6f8fa;
-    font-weight: 700;
-}
-
-
-/*chevron -index*/
-
-.footer-chevron {
-    width: 100%;
-    height: 3rem;
-    text-align: center;
-    background-color: #0000cc;
-    padding: 0.5rem 0;
-    position: absolute;
-    color: lightseagreen;
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eee;
-    top: -2.5rem;
-    right: 5rem;
-    border-radius: 100%;
-    display: flex;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.footer-chevron .up {
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eee;
-    top: -2.5rem;
-    right: 5rem;
-    border-radius: 100%;
-    display: flex;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.footer-chevron i {
-    color: #4e3175;
-    font-size: 2rem;
-    margin: auto;
 }

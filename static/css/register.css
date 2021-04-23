@@ -25,7 +25,7 @@ html {
     border-top: 10px solid #79a6fe;
     border-bottom: 10px solid #8BD17C;
     width: 400px;
-    height: 500px;
+    height: 550px;
     box-shadow: 1px 1px 108.8px 19.2px rgb(25, 31, 53);
 }
 
@@ -117,7 +117,7 @@ label span {
     height: 49px;
     font-size: 16px;
     position: absolute;
-    top: 79%;
+    top: 82%;
     left: 8%;
     transition: 0.3s;
     cursor: pointer;
@@ -162,7 +162,7 @@ label span {
 .typcn {
     position: absolute;
     left: 334px;
-    top: 306px;
+    top: 286px;
     color: #3b476b;
     font-size: 22px;
     cursor: pointer;
@@ -182,7 +182,7 @@ label span {
     border-radius: 5px;
     margin: 10px auto 10px;
     position: absolute;
-    top: 91%;
+    top: 31%;
     left: 7.2%;
     color: white;
     display: none;
@@ -192,7 +192,7 @@ label span {
     position: relative;
     left: 0;
     bottom: 0;
-    top: 605px;
+    top: 705px;
     width: 100%;
     color: #78797d;
     font-size: 14px;
@@ -201,5 +201,4 @@ label span {
 
 .footer .fa {
     color: #7f5feb;
-    ;
 }
