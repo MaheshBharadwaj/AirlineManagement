@@ -10,13 +10,22 @@ def add_route_to_db(request):
         source_city = request.form.get('source_city')
         dest_city = request.form.get("dest_city")
         distance = request.form.get("distance")
+        add_rev = request.form.get("checkbox_rev")
         db = client['route']
         collection = db['routeCollection']
         item = {'source_city': source_city,
                 'dest_city': dest_city,
                 'distance': distance}
         collection.insert_one(item)
+        if add_rev == "add_rev":
+            db = client['route']
+            collection = db['routeCollection']
+            item_rev = {'source_city': dest_city,
+                        'dest_city': source_city,
+                        'distance': distance}
+            collection.insert_one(item_rev)
     except Exception as e:
+
         print("Error: " + str(e))
 
 
