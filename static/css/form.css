@@ -1,7 +1,7 @@
 .form-container {
     padding: 50px;
+    margin: 100px auto;
     width: 1000px;
-    margin: auto;
     background-color: var(--navbar-color);
     color: var(--text-color);
     border-radius: 10px;

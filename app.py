@@ -153,10 +153,10 @@ def admin_logout():
 def add_route():
     if current_user.name == 'admin':
         if request.method == 'GET':
-            return render_template("add_route.html", page_title="Add Route", authors=authors)
+            return render_template("add_route.html", page_title="Add Route", authors=authors, user_logged_in=True, user_name="Admin")
         else:
             add_route_to_db(request=request)
-            return render_template("add_route.html", page_title="Add Route", authors=authors, add_route_success=True)
+            return render_template("add_route.html", page_title="Add Route", authors=authors, user_logged_in=True, user_name="Admin", add_route_success=True)
     else:
         return render_template("403.html"), 403
 
@@ -166,11 +166,10 @@ def add_route():
 def add_flight():
     if current_user.name == 'admin':
         if request.method == 'GET':
-            return render_template("add_flight.html", page_title="Add Flight", authors=authors, routes_array=get_all_routes())
+            return render_template("add_flight.html", page_title="Add Flight", authors=authors, routes_array=get_all_routes(), user_logged_in=True, user_name="Admin")
         else:
             add_flight_to_db(request=request)
-            return render_template("add_flight.html", page_title="Add Flight", authors=authors, routes_array=get_all_routes(),
-                                   add_flight_success=True)
+            return render_template("add_flight.html", page_title="Add Flight", authors=authors, routes_array=get_all_routes(),       add_flight_success=True, user_logged_in=True, user_name="Admin")
     else:
         return render_template("403.html"), 403
 
