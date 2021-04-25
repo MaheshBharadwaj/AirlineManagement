@@ -67,8 +67,12 @@ def not_found(e):
 def index():
 
     if request.method == "GET":
+        if not current_user.is_authenticated:
+            return render_template(
+                "index.html", page_title="Vulture Aviatiors", authors=authors
+            )
         return render_template(
-            "index.html", page_title="SSN MUN 2021", authors=authors
+            "index.html", page_title="Vulture Aviatiors", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize()
         )
 
 
@@ -149,10 +153,10 @@ def admin_logout():
 def add_route():
     if current_user.name == 'admin':
         if request.method == 'GET':
-            return render_template("add_route.html", page_title="Add Route Page", authors=authors)
+            return render_template("add_route.html", page_title="Add Route", authors=authors)
         else:
             add_route_to_db(request=request)
-            return render_template("add_route.html", page_title="Add Route Page", authors=authors, add_route_success=True)
+            return render_template("add_route.html", page_title="Add Route", authors=authors, add_route_success=True)
     else:
         return render_template("403.html"), 403
 

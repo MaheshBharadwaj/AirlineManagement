@@ -71,7 +71,11 @@
                                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                             </li>
                         </ul>
-
+                        {% if user_logged_in %}
+                        <span class="ml-auto">
+                            Welcome {{ user_name }}
+                        </span> {% else %}
+                        <a href="/login" class="btn btn-lg btn-info nav-link ml-auto">Login</a> {% endif %}
                     </div>
                 </div>
             </nav>
@@ -79,7 +83,7 @@
             {% block content %}{% endblock %}
             <footer class="footer-distributed">
                 <div class="footer-left">
-                    <h3><span>ABC </span>AIRLINES</h3>
+                    <h3><span>VULTURE </span>AVIATORS</h3>
 
                     <p class="footer-links">
                         <a href="/">Home</a> ·
@@ -122,10 +126,10 @@
 
                 <div class="footer-right">
                     <p class="footer-company-about">
-                        <span>About ABC Airlines</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium iusto molestias pariatur cumque voluptates quam error cupiditate. Dolores a eligendi nemo fuga, pariatur in, autem perferendis
-                        libero deleniti ad corporis.
+                        <span>About Vulture Aviators</span> VA is India’s largest passenger airline with a market share of 54.3% as of March, 2021. Our goal is to redefine air travel to provide our travellers a seamless and personalized flying experience.Our
+                        three pillars are offering low fares, being on-time and delivering a courteous and hassle-free experience.
                     </p>
-                    <p class="footer-company-name">ABC Airlines © 2021</p>
+                    <p class="footer-company-name">Vulture Aviators © 2021</p>
                 </div>
             </footer>
         </div>
