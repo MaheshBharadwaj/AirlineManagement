@@ -32,16 +32,13 @@ authors = [{'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'},
            {'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'}, {'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'}]
 
 
-def check_password(user_password, password):
-    return user_password == password
-
-
 class User(UserMixin, db.Model):
     # primary keys are required by SQLAlchemy
     id = db.Column(db.String(20), primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(150))
     name = db.Column(db.String(100))
+    travel_points = db.Column((db.Integer()))
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -73,8 +70,9 @@ def index():
             )
         return render_template(
             "index.html", page_title="Vulture Aviatiors", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize()
-     
-           )
+
+        )
+
 
 '''
 
@@ -83,6 +81,8 @@ def about():
     return render_template("index.html#about")
 
 '''
+
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -177,6 +177,11 @@ def add_route():
             return render_template("add_route.html", page_title="Add Route", authors=authors, user_logged_in=True, user_name="Admin", add_route_success=True)
     else:
         return render_template("403.html"), 403
+
+
+# @app.route('/contact-test')
+# def contact_test():
+#     return render_template("dummy.html")
 
 
 @app.route("/add-flight", methods=['GET', 'POST'])

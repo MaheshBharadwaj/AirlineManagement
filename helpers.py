@@ -81,13 +81,17 @@ def get_route(source_city: str, dest_city: str):
         collection = db['routeCollection']
         routes = [route for route in collection.find(
             {'source_city': source_city, 'dest_city': dest_city})]
-        return routes[0]
+        if len(routes) > 0:
+            return routes[0]
+        return None
     except Exception as e:
         print('Exception: ' + str(e))
 
 
 def get_flights_by_route(source_city: str, dest_city: str):
     route = get_route(source_city=source_city, dest_city=dest_city)
+    if route is None:
+        return
     try:
         flight_db = client['flight']
         collection = flight_db['flightCollection']
