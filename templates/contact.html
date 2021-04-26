@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/contact.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <img class="navbar-brand" src="https://cdn.onlinewebfonts.com/svg/img_537596.svg" alt="flight icon" style="height: 70px;filter: invert(98%) sepia(5%) saturate(141%) hue-rotate(253deg) brightness(111%) contrast(87%);">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" id="nav-link-home">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item" id="nav-link-book">
+                        <a class="nav-link" href="#">Book Tickets</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                {% if user_logged_in %}
+                <span class="ml-auto">
+                            Welcome {{ user_name }}
+                        </span> {% else %}
+                <a href="/login" class="btn btn-lg btn-info nav-link ml-auto">Login</a> {% endif %}
+            </div>
+        </div>
+    </nav>
+    <section class="banner">
+        <div class="text-content">
+            <h1>
+                Contact Us
+            </h1>
+            <h3>We at Vulture Aviators would love to help you with any requests or enquiries. Find your preferred way to contact us below. </h3>
+        </div>
+    </section>
+
+
+
+    <div class="container">
+        <div class="card2">
+            <div class="box">
+                <div class="content">
+
+                    <h3><b>For Media Enquiries</b></h3>
+                    <p>media@vulaviotors.com <br>+91 79 61556000 </p>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card2">
+            <div class="box">
+                <div class="content">
+
+                    <h3><b>For Sales related Enquiries</b></h3>
+
+                    <p>salessupport@vulaviotors.com<br>+91 29 54556000 </p>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card2">
+            <div class="box">
+                <div class="content">
+
+                    <h3><b>For Other Queries or Feedback</b></h3>
+
+                    <p>quer&fb@vulaviotors.com<br>+91 95129 72827 </p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="color:#EEE;padding-top:100px;padding-bottom: 25px;padding-left:3rem;background: #1b262c;margin-bottom: 0;">Our Corporate Offices:</h2>
+    <div class="contact">
+        <div class="box">
+            <h3>North India</h3>
+
+            <p>Cross Tower,3rd Floor, No.12/34, <br>Cross Street,South Delhi <br> Delhi - 110 017.</p>
+            <br>
+            <p>Tel : 044 4220 6759</p><br>
+            <p>north.va_offl@vulaviators.com</p><br>
+        </div>
+        <div class="box">
+            <h3>South India</h3>
+
+            <p>Spencer Plaza , 2nd Floor, No. 67,<br> Mount Road,Anna Salai <br> Chennai - 600 035.</p>
+            <br>
+            <p>Tel : 044 6210 8859</p><br>
+            <p>south.va_offl@vulaviators.com</p><br>
+
+        </div>
+
+        <div class="box">
+            <h3>East India</h3>
+
+            <p>ISS-East Park ,11th Floor , No. 13/27,<br> Ragdhani Street, Chamoli <br> Uttarakhand - 248 011.</p>
+            <br>
+            <p>Tel : 044 5553 8462</p><br>
+            <p>east.va_offl@vulaviators.com</p><br>
+
+        </div>
+        <div class="box">
+            <h3>West India</h3>
+
+            <p>Konak Park, 5th Floor, No.45/60 ,<br> Bhandra, <br> Maharashtra - 137 035.</p>
+            <br>
+            <p>Tel : 044 7710 7989</p><br>
+            <p>west.va_offl@vulaviators.com</p><br>
+
+        </div>
+        <div class="box">
+
+            <br>
+            <br>
+
+            <br>
+            <!--
+            <br>
+            <br> -->
+            <h3 style="color: #fff;">Connect with Us on</h3>
+
+            <br>
+            <div class="iconsc">
+                <div class="circle">
+                    <a href="https://twitter.com/">
+                        <i class="fab fa-2x fa-twitter"></i></a>
+                </div>
+                <div class="circle">
+                    <a href="https://www.facebook.com/">
+                        <i class="fab fa-2x fa-facebook-f"></i></a>
+                </div>
+                <div class="circle">
+                    <a href="https://www.linkedin.com/in/">
+                        <i class="fab fa-2x fa-linkedin-in"></i></a>
+                </div>
+                <div class="circle">
+                    <a href="https://www.gmail.com/in/">
+                        <i class="fas fa-2x fa-envelope"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>

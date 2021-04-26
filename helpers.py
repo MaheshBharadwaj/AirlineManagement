@@ -74,5 +74,33 @@ def add_flight_to_db(request):
         print("Error: " + str(e))
 
 
+def get_route(source_city: str, dest_city: str):
+    global client
+    try:
+        db = client['route']
+        collection = db['routeCollection']
+        routes = [route for route in collection.find(
+            {'source_city': source_city, 'dest_city': dest_city})]
+        return routes[0]
+    except Exception as e:
+        print('Exception: ' + str(e))
+
+
+def get_flights_by_route(source_city: str, dest_city: str):
+    route = get_route(source_city=source_city, dest_city=dest_city)
+    try:
+        flight_db = client['flight']
+        collection = flight_db['flightCollection']
+        flights = [flight for flight in collection.find(
+            {'route_id': route.get('_id')})]
+        for flight in flights:
+            flight['route_id'] = str(flight['route_id'])
+            flight['_id'] = str(flight['_id'])
+        return flights
+
+    except Exception as e:
+        print('Exception: ' + str(e))
+
+
 if __name__ == '__main__':
     print(get_all_routes())

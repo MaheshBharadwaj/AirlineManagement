@@ -8,7 +8,7 @@ from helpers import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-from flask import Flask, render_template, redirect, url_for, request, flash, send_file, send_from_directory
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, send_file, send_from_directory
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -76,6 +76,11 @@ def index():
         )
 
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
 @app.route("/sign-up", methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -120,21 +125,27 @@ def login_post():
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    if user.name == 'admin':
-        return redirect(url_for("admin"))
+    # if user.name == 'admin':
+    #     return redirect(url_for("admin"))
 
     return redirect(url_for("index"))
 
 
-@app.route("/admin")
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
+
+
+@app.route("/dashboard")
 @login_required
 def admin():
 
     if current_user.name == 'admin':
         return render_template("admin.html")
-    print(current_user.name)
-
-    return render_template("403.html", name=current_user.name), 403
+    else:
+        return render_template("user.html")
 
 
 @app.route("/admin-logout")
@@ -172,6 +183,24 @@ def add_flight():
             return render_template("add_flight.html", page_title="Add Flight", authors=authors, routes_array=get_all_routes(),       add_flight_success=True, user_logged_in=True, user_name="Admin")
     else:
         return render_template("403.html"), 403
+
+
+@app.route("/search-flights", methods=['GET'])
+@login_required
+def search_flights():
+    return render_template("search_flights.html", page_title="Search Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
+
+@app.route("/get-flights", methods=['GET'])
+@login_required
+def get_flights():
+    source_city = request.args.get('source_city')
+    dest_city = request.args.get('dest_city')
+    jsonObj = jsonify(get_flights_by_route(
+        source_city=source_city, dest_city=dest_city))
+    return jsonObj
+# else:
+    #     return render_template("403.html"), 403
 
 
 if __name__ == "__main__":
