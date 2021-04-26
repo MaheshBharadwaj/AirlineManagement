@@ -73,9 +73,16 @@ def index():
             )
         return render_template(
             "index.html", page_title="Vulture Aviatiors", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize()
-        )
+     
+           )
 
+'''
 
+@app.route("/about")
+def about():
+    return render_template("index.html#about")
+
+'''
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -128,7 +135,7 @@ def login_post():
     # if user.name == 'admin':
     #     return redirect(url_for("admin"))
 
-    return redirect(url_for("index"))
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/logout")
@@ -140,7 +147,7 @@ def logout():
 
 @app.route("/dashboard")
 @login_required
-def admin():
+def dashboard():
 
     if current_user.name == 'admin':
         return render_template("admin.html")
