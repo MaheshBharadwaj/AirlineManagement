@@ -107,6 +107,7 @@ def register():
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
+    add_user_to_mongo(email=email)
     return redirect(url_for("login"))
 
 
@@ -211,8 +212,35 @@ def get_flights():
     jsonObj = jsonify(get_flights_by_route(
         source_city=source_city, dest_city=dest_city))
     return jsonObj
-# else:
-    #     return render_template("403.html"), 403
+
+
+@app.route("/get-tickets", methods=['GET'])
+@login_required
+def get_tickets():
+    f_id = request.args.get('f_id')
+    date = request.args.get('date')
+    jsonObj = jsonify(get_tickets_left(flight_id=f_id, date=date))
+    return jsonObj
+
+
+@app.route("/book-tickets", methods=['GET', 'POST'])
+@login_required
+def book_tickets_method():
+    if request.method == 'GET':
+        flight_id = request.args.get("flight_id")
+        flight = get_flight_by_id(flight_id=flight_id)
+        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    else:
+        # handle ticket booking
+        flight_id = request.form.get("flight_id")
+        flight = get_flight_by_id(flight_id=flight_id)
+        date = request.form.get('ticket_date')
+        economy_tickets = int(request.form.get('quant[1]', 0))
+        business_tickets = int(request.form.get('quant[2]', 0))
+        # print('Economy: ', economy_tickets, '\nBusiness: ', business_tickets)
+        book_tickets(email=current_user.email, flight_id=flight_id,
+                     b_count=business_tickets, e_count=economy_tickets, date=date)
+        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True)
 
 
 if __name__ == "__main__":

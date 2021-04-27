@@ -1,0 +1,156 @@
+{% extends "base.html"%} {% block page_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/form.css')}}"> {% endblock %} {%block content%} {%if popup_success %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                Successfully booked tickets!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#exampleModal").modal('show');
+</script>
+{% endif %}
+
+<div class="form-container">
+    <div class="jumbotron">
+        <h1 class="display-4 text-dark text-center">Book Tickets</h1>
+        <br>
+        <p class="lead text-center">
+            <a class="btn btn-success btn-lg" href="/dashboard" role="button">Back</a>
+        </p>
+    </div>
+    <form class="form-horizontal" method="POST">
+        <!-- Hidden field to pass flight id -->
+        <input type="hidden" id="flight_id" name="flight_id" value="{{flight._id}}">
+        <div class="form-group row">
+            <label for="f_id" class="col-4 col-form-label">Flight ID</label>
+            <div class="col-8">
+                <input id="f_id" name="f_id" value="{{flight.f_id}}" type="text" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="source_city" class="col-4 col-form-label">Source City</label>
+            <div class="col-8">
+                <input id="source_city" name="source_city" value="{{flight.source_city}}" type="text" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dest_city" class="col-4 col-form-label">Destination City</label>
+            <div class="col-8">
+                <input id="dest_city" name="dest_city" value="{{flight.dest_city}}" type="text" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="d_time" class="col-4 col-form-label">Departure Time</label>
+            <div class="col-4">
+                <div class="input-group">
+                    <input id="d_time" name="d_time" value="{{flight.d_time}}" type="text" class="form-control" disabled>
+                    <div class="input-group-append">
+                        <div class="input-group-text">HRS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="d_time" class="col-4 col-form-label">Arrival Time</label>
+            <div class="col-4">
+                <div class="input-group">
+                    <input id="a_time" name="a_time" value="{{flight.a_time}}" type="text" class="form-control" disabled>
+                    <div class="input-group-append">
+                        <div class="input-group-text">HRS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="dest_city">Date</label>
+            <div class="col-8">
+                <input type="date" id="ticket_date" name="ticket_date" placeholder="select date" max="2021-06-01" onchange="onDateChange()">
+            </div>
+        </div>
+        <div id="e_left_div" class="form-group row">
+            <label for="e_left" class="col-4 col-form-label">Economy Class Left</label>
+            <div class="col-4">
+                <div class="input-group">
+                    <input id="e_left" name="e_left" type="text" class="form-control" disabled>
+                    <div class="input-group-append">
+                        <div class="input-group-text">Tickets</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="e_book_div" class="form-group row">
+            <label class="col-md-4 col-form-labe1l" for="quant[1]">Economy Class Tickets</label>
+            <div class="col-8">
+
+                <div class="input-group col-md-6">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[1]">
+                            <span class="fas fa-minus"></span>
+                    </button>
+                    </span>
+                    <input type="text" name="quant[1]" class="form-control input-number" min="0" max="5" value="0">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[1]">
+                            <span class="fas fa-plus"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="b_left_div" class="form-group row">
+            <label for="b_time" class="col-4 col-form-label">Business Class Left</label>
+            <div class="col-4">
+                <div class="input-group">
+                    <input id="b_left" name="b_left" type="text" class="form-control" disabled>
+                    <div class="input-group-append">
+                        <div class="input-group-text">Tickets</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="b_book_div" class="form-group row">
+            <label class="col-md-4 col-form-label" for="quant[2]">Business Class Tickets</label>
+            <div class="col-8">
+
+                <div class="input-group col-md-6">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
+                            <span class="fas fa-minus"></span>
+                    </button>
+                    </span>
+                    <input type="text" name="quant[2]" class="form-control input-number" min="0" max="5" value="0">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
+                            <span class="fas fa-plus"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-4 col-8">
+                <button id="submit-btn" name="submit-btn" type="submit" class="btn btn-primary" disabled>Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %} {% block nav_active %}
+<script src="{{url_for('static', filename='js/book-ticket.js')}}"></script>
+{% endblock %}
