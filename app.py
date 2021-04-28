@@ -218,6 +218,14 @@ def get_flights():
 def delete_flights():
     return render_template("delete_flight.html", page_title="Delete Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
+@app.route("/remove", methods=['GET', 'POST'])
+@login_required
+def remove():
+    flight_id = request.args.get("flight_id")
+    #flight = get_flight_by_id(flight_id=flight_id)
+    if(delete_flight(flight_id)):
+        return render_template("delete_flight.html", user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True)
+
 
 @app.route("/get-tickets", methods=['GET'])
 @login_required
