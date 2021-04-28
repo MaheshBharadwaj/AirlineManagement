@@ -209,7 +209,7 @@ def search_flights():
 def listing():
 
     print('reached list-bookings app.py')
-    return render_template("list_bookings.html", page_title="Bookings Log", authors=authors, user_logged_in=True, user_name="Admin")
+    return render_template("list_bookings.html", page_title="Bookings Log", authors=authors, user_logged_in=True,  user_name=current_user.name.split()[0].capitalize())
 
 @app.route("/get-all-flights" , methods=['GET'])
 @login_required
@@ -220,6 +220,10 @@ def get_all_flights():
         
         #print(jsonObj)
         return jsonObj
+    else:
+         jsonObj = jsonify(get_user_bookings(current_user.email))
+         return jsonObj
+
 
 
 

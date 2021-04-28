@@ -65,15 +65,25 @@
   <div class="card-body">
     <h5 class="card-title">${json[i].source_city} to ${json[i].dest_city}</h5>
     <p class="card-text">Departure Time: ${json[i].d_time} HRS<br>
-        Arrival Time: ${json[i].a_time} HRS<br>
-        Economy Class Tickets : ${json[i].e_seats} Nos <br>
-        Business Class Tickets : ${json[i].b_seats} Nos <br>
+        Arrival Time: ${json[i].a_time} HRS<br>`
         
-        Economy Class Ticket Cost: INR ${json[i].e_cost}<br>
-        Business Class Ticket Cost: INR ${json[i].b_cost}</p>
+        if(json[i].e_seats!=0){
+            item+=`Economy Class Tickets : ${json[i].e_seats} Nos <br>
+            Economy Class Ticket Cost: INR ${json[i].e_cost}<br>`
+        }
+        if(json[i].b_seats!=0)
+        {
+            item+=` Business Class Tickets : ${json[i].b_seats} Nos <br>
+        
+        
+        Business Class Ticket Cost: INR ${json[i].b_cost}</p>`
+        }
+        
+        
+       
 
     
-  </div>
+  item+=`</div>
 </div><br><br>`
             html += item;
         }

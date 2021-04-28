@@ -168,7 +168,29 @@ def get_all_flights_by_id():
     except Exception as e:
         print('Exception in get flight by id: ' + str(e))
     
-            
+
+def get_user_bookings(email : str):
+    global client
+    try: 
+        flights=[]
+        user_db = client['users']
+        user_collection = user_db['usersCollection']
+        usr = user_collection.find_one({'email' : email})  
+        for each in usr['bookings']:
+            flight = get_flight_by_id(each['flight_id'])
+            #print('flight id: ',each['flight_id'])
+            flight['e_seats']=each['e_count']
+            flight['b_seats']=each['b_count']
+            flight['date'] = each['date']
+            flight['tdate'] = each['transactionDate']
+            #print(flight)
+            flights.append(flight)
+
+        return flights
+    except Exception as e:
+        print('Exception in getting user tickets: ' + str(e))
+
+                    
 
 def get_all_flights_by_route():
     global client
@@ -203,6 +225,7 @@ def get_flight_by_id(flight_id: str):
         flight['route_id'] = str(flight['route_id'])
         flight['source_city'] = route['source_city']
         flight['dest_city'] = route['dest_city']
+        
         return flight
     except Exception as e:
         print('Exception in get flight by id: ' + str(e))
