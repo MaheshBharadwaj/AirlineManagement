@@ -46,6 +46,9 @@
 </div>
 {% endblock %}{% block nav_active %}
 
+<script>
+    document.getElementById("nav-link-search").classList.add("active");
+</script>
 <script src="{{url_for('static', filename='js/search-flight.js')}}">
 </script>
 {% endblock %}

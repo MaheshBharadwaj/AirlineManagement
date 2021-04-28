@@ -1,0 +1,10 @@
+.message-container {
+    /* margin: 50px 150px; */
+    /* border-radius: 30px; */
+    background-color: #EEE;
+    padding: 50px;
+}
+
+.footer-distributed {
+    bottom: 0;
+}

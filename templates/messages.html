@@ -1,0 +1,32 @@
+{% extends "base.html"%} {% block page_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/message.css')}}"> {% endblock %} {%block content%}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4 text-dark text-center">Messages Page</h1>
+        <br>
+        <p class="lead text-center">
+            <a class="btn btn-success btn-lg" href="/dashboard" role="button">Back</a>
+        </p>
+    </div>
+    <div class="message-container">
+        {% if messages|length == 0 %}
+        <div class="card text-white bg-success list-group-item">
+            <div class="card-header">No Messages!</div>
+            <div class="card-body">
+                <h5 class="card-title">Please check back later!</h5>
+
+            </div>
+        </div>
+        {% else %} {% for message in messages %}
+        <div class="card text-white bg-info list-group-item">
+            <div class="card-header">Message from admin</div>
+            <div class="card-body">
+                <h5 class="card-title">Important!</h5>
+
+                <p class="card-text">{{message.message}}</p>
+            </div>
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -14,7 +14,15 @@ def add_user_to_mongo(email: str):
             'email': email,
             'bookings': []
         }
-        collection.insert_one(item)
+        result = collection.insert_one(item)
+        msg_db = client['msg']
+        msg_collection = msg_db['msgCollection']
+        msg_item = {
+            'user_id': str(result.inserted_id),
+            'messages_array': []
+        }
+        msg_collection.insert_one(msg_item)
+
     except Exception as e:
         print('Exception in add user: ' + str(e))
 
@@ -166,27 +174,50 @@ def get_tickets_left(flight_id: str, date: str):
     except Exception as e:
         print('Exception in get tickets left: ' + str(e))
 
+
 def delete_flight(flight_id: str):
-    global client 
+    global client
     try:
         flight_db = client['flight']
         flight_collection = flight_db['flightCollection']
         db = client['ticket']
         collection = db['ticketCollection']
-        
+
+        flight = flight_collection.find_one({'_id': ObjectId(flight_id)})
+
         flight_collection.delete_many({'_id': ObjectId(flight_id)})
         x = collection.delete_many({'flight_id': ObjectId(flight_id)})
-        #print(x.deleted_count)
+        # print(x.deleted_count)
 
         user_db = client['users']
         user_collection = user_db['usersCollection']
 
         for user in user_collection.find():
-            for each in user['bookings']:
-                y = user['bookings'].delete_one({'flight_id': ObjectId(flight_id)})
-                print('flight count: ',y)
+            to_update = False
+            new_booking = []
+            for booking in user['bookings']:
+                if booking['flight_id'] == flight_id:
+                    to_update = True
+                    continue
+                else:
+                    new_booking.append(booking)
+            if to_update:
+                user_collection.update_one({'_id': user['_id']}, {
+                                           '$set': {'bookings': new_booking}})
 
-        #flight_collection.delete_one()
+                msg_db = client['msg']
+                msg_collection = msg_db['msgCollection']
+                msg = "Flight ID: " + \
+                    str(flight['f_id']) + " has been cancelled due to unforceen circumstances! The amount will be refunded within 5 business days. Sorry for inconvineance cause"
+                msg_item = {'user_id': str(
+                    user['_id']), 'message': msg, 'timestamp': str(datetime.date.today())}
+
+                msg_ob = msg_collection.find_one({'user_id': str(user['_id'])})
+                current_msg_array = msg_ob['messages_array']
+                current_msg_array.append(msg_item)
+                msg_collection.update_one({'user_id': str(user['_id'])}, {
+                                          '$set': {'messages_array': current_msg_array}})
+
         return True
     except Exception as e:
         print('Error in deleting flight: ' + str(e))
@@ -246,6 +277,22 @@ def book_tickets(email: str, flight_id: str, b_count: int, e_count: int, date: s
 
     except Exception as e:
         print('Error in book tickets: ' + str(e))
+
+
+def get_messages(email: str):
+    global client
+    try:
+        db = client['users']
+        collection = db['usersCollection']
+
+        user_ob = collection.find_one({'email': email})
+        user_id = str(user_ob['_id'])
+        msg_db = client['msg']
+        msg_collection = msg_db['msgCollection']
+        messages = msg_collection.find_one({'user_id': user_id})
+        return messages['messages_array']
+    except Exception as e:
+        print('Exception in get messages: ' + str(e))
 
 
 if __name__ == '__main__':

@@ -213,10 +213,12 @@ def get_flights():
         source_city=source_city, dest_city=dest_city))
     return jsonObj
 
+
 @app.route("/delete-flights", methods=['GET'])
 @login_required
 def delete_flights():
     return render_template("delete_flight.html", page_title="Delete Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
 
 @app.route("/remove", methods=['GET', 'POST'])
 @login_required
@@ -254,6 +256,18 @@ def book_tickets_method():
         book_tickets(email=current_user.email, flight_id=flight_id,
                      b_count=business_tickets, e_count=economy_tickets, date=date)
         return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True)
+
+
+@app.route('/terms', methods=['GET'])
+def terms():
+    return render_template("terms.html", page_title='Terms and Conditions', user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
+
+@app.route('/messages', methods=['GET'])
+@login_required
+def messages():
+    msg_array = get_messages(current_user.email)
+    return render_template("messages.html",  page_title="Messages", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), messages=msg_array)
 
 
 if __name__ == "__main__":

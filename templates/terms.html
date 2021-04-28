@@ -1,0 +1,66 @@
+{% extends "base.html"%} {% block page_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/forms.css')}}"> {% endblock %} {%block content%}
+<div class="form-container">
+    <div class="jumbotron">
+        <h1 class="display-4 text-dark text-center">Terms and Conditions</h1>
+        <br>
+        <p class="lead text-center">
+            <a class="btn btn-success btn-lg" href="/admin" role="button">Back</a>
+        </p>
+    </div>
+    <div style="color:white; margin: 50px 150px;">
+        <h4 style="font-size: 36px;">Terms and Condition</h3>
+            <p style="margin-left:25px">
+                We look forward to the opportunity to act as your booking agent for your travel needs. Please read these Terms and Conditions carefully before using the services and website of airtickets.ie. When you use or make a booking on our site you are deemed to
+                have accepted these Terms and Conditions.<br> These terms and conditions (the “Agreement” or “Contract”) describe what you are legally entitled to expect from us when you purchase travel related services through us, in
+                addition to your obligations as a customer.
+            </p>
+
+            <h3 style="margin-left:50px">1. Definitions</h2>
+                <p style="margin-left:85px">
+                    The terms “we“, “us” and “our” refer to vulture_aviators®, one of the largest online travel agencies in India that manages an extensive portfolio of travel-focused websites.<br> The term “you” and “your” refers to the customer visiting
+                    our website, booking a reservation through us or otherwise using our services.<br><br>
+
+                    <b>“Booking”</b>: any order for products or services you make on our Website which is confirmed or accepted by us. <br>
+
+                    <b>“Customer” or “Client”</b>: The person who makes a Booking or the person on whose behalf the services provided by us have been agreed and who has accepted that condition.<br>
+
+                    <b>“Service(s)”</b>: a service offered by our website, such as a booking of transport services.<br>
+
+                    <b>“Website”</b>: means the http://www.vulture_aviator.com website.<br>
+                </p>
+                <h3 style="margin-left:50px">2. Booking via our website</h3>
+                <ul style="margin-left: 50px">
+                    <li>You agree to be bound by the terms of this Agreement and any additional terms and conditions of any Supplier that are applicable to your booking, travel arrangements or use of any website content. You agree on behalf of yourself and
+                        those you represent to comply with all such terms and conditions, including the payment of all amounts when due.</li>
+                    <li>You agree that, under no circumstances, any compensation paid by us cannot exceed the purchase price of your ticket after deducting the amount corresponding to the service fee.</li>
+                </ul>
+                <h3 style="margin-left:50px">3. Booking</h3>
+                <h4 style="margin-left:85px">3.1. Price</h4>
+                <p style="margin-left:100px">
+                    Prices are confirmed at the final step of the booking path at the point when you click “Book now”, “Make the reservation” or similar, depending on product purchased.
+                </p>
+                <h4 style="margin-left:85px">3.2. Service fee</h4>
+                <p style="margin-left:100px">
+                    By using our Website to book products and/or services, you authorize us to act as your representative during the process of booking of products and/or services from the selected Travel Supplier and to make the payment for such products or services in
+                    your name and on your behalf, as required. Accordingly, we shall charge you with a service fee, depending upon which product you book. Any fee charged will be displayed before you confirm your booking.
+                </p>
+                <h3 style="margin-left:50px">4. Cancellations</h3>
+                <p style="margin-left:85px">
+                    In case of an obvious error (including any error in data entry, error of calculation or clerical error) resulting in the display of a price which has obviously been displayed by mistake, we reserve the right to cancel your booking, even if it was automatically
+                    confirmed by us. You will be informed of this as soon as possible, to allow you to make a booking at the correct price.<br><br> We also reserve the right to cancel your booking at any time for security or fraud-protection
+                    purposes.
+                </p>
+                <h3 style="margin-left:50px">5. Changes to General Terms and Conditions</h3>
+                <p style="margin-left:85px">
+                    We reserve the right to change or update these Terms and Conditions from time to time without prior notice to you. The current version of the T&Cs will be displayed within the Website from the date on which any changes come into effect. Continued use
+                    of the Site following any changes to the Terms and Conditions shall constitute your acceptance of such changes.
+                </p>
+    </div>
+
+    {% endblock %}{% block nav_active %}
+
+    <script>
+        document.getElementById("nav-link-terms").classList.add("active");
+    </script>
+    {% endblock %}
