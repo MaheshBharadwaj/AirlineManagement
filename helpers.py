@@ -166,6 +166,31 @@ def get_tickets_left(flight_id: str, date: str):
     except Exception as e:
         print('Exception in get tickets left: ' + str(e))
 
+def delete_flight(flight_id: str):
+    global client 
+    try:
+        flight_db = client['flight']
+        flight_collection = flight_db['flightCollection']
+        db = client['ticket']
+        collection = db['ticketCollection']
+        
+        flight_collection.delete_many({'_id': ObjectId(flight_id)})
+        x = collection.delete_many({'flight_id': ObjectId(flight_id)})
+        #print(x.deleted_count)
+
+        user_db = client['users']
+        user_collection = user_db['usersCollection']
+
+        for user in user_collection.find():
+            for each in user['bookings']:
+                y = user['bookings'].delete_one({'flight_id': ObjectId(flight_id)})
+                print('flight count: ',y)
+
+        #flight_collection.delete_one()
+        return True
+    except Exception as e:
+        print('Error in deleting flight: ' + str(e))
+
 
 def book_tickets(email: str, flight_id: str, b_count: int, e_count: int, date: str):
     global client
