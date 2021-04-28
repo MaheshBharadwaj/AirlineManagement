@@ -1,0 +1,93 @@
+{% extends "base.html"%} {% block page_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/form.css')}}"> {% endblock %} {%block content%} 
+
+<div class="form-container">
+    <div class="jumbotron">
+    
+        <h1 class="display-4 text-dark text-center">Bookings - log</h1>
+        <br>
+        <p class="lead text-center">
+            <button name="submit" type="button" class="btn btn-primary" onclick="listFlights()">View Bookings</button>
+        </p>
+    </div>
+    <div class="list-group" id="searchResults">
+    </div>
+</div>
+{% endblock %}{% block nav_active %}
+<script>
+    function listFlights()
+    {
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                renderData(this.responseText)
+            }
+        };
+         xhttp.open("GET", "get-all-flights", true);
+        xhttp.send();
+
+        
+    } 
+
+    function renderData(reposnse) {
+        
+        var json = JSON.parse(reposnse);
+        if (!json) {
+            var item = `<div class="card text-white bg-danger list-group-item">
+                <div class="card-header">Not available!</div>
+                <div class="card-body">
+                    <h5 class="card-title">No Flights available to list</h5>
+                    <p class="card-text">Please check database!!</p>
+                    </div>
+                    </div>`
+            document.getElementById("searchResults").innerHTML = item;
+            return;
+        }
+        
+        var html = ""
+        var count = json.length;
+        for (let i = 0; i < count; i++) {
+
+            /*var xhttp = new XMLHttpRequest();
+            var route;
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    route = this.responseText
+                }
+            };
+            var url = "/get-route-from-fid?f_id" + json[i].f_id;
+            xhttp.open("GET", url, true);
+            xhttp.send();*/
+            
+            var item = `<div class="card text-white list-group-item" style="background-color:#657BF3;" >
+  <h5 class="card-header">Flight ID: ${json[i].f_id}</h5>
+  <div class="card-body">
+    <h5 class="card-title">${json[i].source_city} to ${json[i].dest_city}</h5>
+    <p class="card-text">Departure Time: ${json[i].d_time} HRS<br>
+        Arrival Time: ${json[i].a_time} HRS<br>`
+        
+        if(json[i].e_seats!=0){
+            item+=`Economy Class Tickets : ${json[i].e_seats} Nos <br>
+            Economy Class Ticket Cost: INR ${json[i].e_cost}<br>`
+        }
+        if(json[i].b_seats!=0)
+        {
+            item+=` Business Class Tickets : ${json[i].b_seats} Nos <br>
+        
+        
+        Business Class Ticket Cost: INR ${json[i].b_cost}</p>`
+        }
+        
+        
+       
+
+    
+  item+=`</div>
+</div><br><br>`
+            html += item;
+        }
+        document.getElementById("searchResults").innerHTML = html;
+    }
+</script>
+{% endblock %}

@@ -116,6 +116,8 @@ def get_route(source_city: str, dest_city: str):
         print('Exception in get route: ' + str(e))
 
 
+
+
 def get_flights_by_route(source_city: str, dest_city: str):
     global client
     route = get_route(source_city=source_city, dest_city=dest_city)
@@ -134,6 +136,88 @@ def get_flights_by_route(source_city: str, dest_city: str):
     except Exception as e:
         print('Exception in get flights by route: ' + str(e))
 
+def get_route_from_flight_id(flight_id: str):
+    global client
+    route=[]
+    route_id = "temp"
+
+    try:
+        route_db = client['route']
+        route_collection = route_db['routeCollection']
+        flight_db = client['flight']
+        collection = flight_db['flightCollection']
+        for each in collection.find():
+            if(str(each['_id'])==flight_id):
+                route_id = each['route_id']
+        for each in route_collection:
+            if(str(each['_id'])==route_id):
+                route.append(each['source_city'])
+                route.append(each['dest_city'])
+        print('route: ',route)
+        return route
+    except Exception as e:
+        print('Exception in get route by flight id: ' + str(e))
+    
+
+
+
+
+
+def get_all_flights_by_id():
+    global client
+    flights = []
+    try:
+        flight_db = client['flight']
+        collection = flight_db['flightCollection']
+        for each in collection.find():
+            flights.append(get_flight_by_id(each['_id']))
+        
+        return flights
+    except Exception as e:
+        print('Exception in get flight by id: ' + str(e))
+    
+
+def get_user_bookings(email : str):
+    global client
+    try: 
+        flights=[]
+        user_db = client['users']
+        user_collection = user_db['usersCollection']
+        usr = user_collection.find_one({'email' : email})  
+        for each in usr['bookings']:
+            flight = get_flight_by_id(each['flight_id'])
+            #print('flight id: ',each['flight_id'])
+            flight['e_seats']=each['e_count']
+            flight['b_seats']=each['b_count']
+            flight['date'] = each['date']
+            flight['tdate'] = each['transactionDate']
+            #print(flight)
+            flights.append(flight)
+
+        return flights
+    except Exception as e:
+        print('Exception in getting user tickets: ' + str(e))
+
+                    
+
+def get_all_flights_by_route():
+    global client
+    flights = []
+    try:
+        route_db = client['route']
+        route_collection = route_db['routeCollection']
+        flight_db = client['flight']
+        collection = flight_db['flightCollection']
+            
+        for each in route_collection.find():
+            flights.extend(flight for flight in collection.find(
+                {'route_id': ObjectId(each['_id'])}))
+            
+        print(flights)
+        return flights
+    except Exception as e:
+        print('Exception in get flights by route: ' + str(e))
+
 
 def get_flight_by_id(flight_id: str):
     global client
@@ -149,6 +233,7 @@ def get_flight_by_id(flight_id: str):
         flight['route_id'] = str(flight['route_id'])
         flight['source_city'] = route['source_city']
         flight['dest_city'] = route['dest_city']
+        
         return flight
     except Exception as e:
         print('Exception in get flight by id: ' + str(e))
