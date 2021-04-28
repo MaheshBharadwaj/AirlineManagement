@@ -204,6 +204,27 @@ def search_flights():
     return render_template("search_flights.html", page_title="Search Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
 
+@app.route("/list-bookings" , methods=['GET'])
+@login_required
+def listing():
+
+    print('reached list-bookings app.py')
+    return render_template("list_bookings.html", page_title="Bookings Log", authors=authors, user_logged_in=True, user_name="Admin")
+
+@app.route("/get-all-flights" , methods=['GET'])
+@login_required
+def get_all_flights():
+    if current_user.name == 'admin':
+        #print('Admin check')
+        jsonObj = jsonify(get_all_flights_by_id())
+        
+        #print(jsonObj)
+        return jsonObj
+
+
+
+
+
 @app.route("/get-flights", methods=['GET'])
 @login_required
 def get_flights():
@@ -235,6 +256,13 @@ def get_tickets():
     jsonObj = jsonify(get_tickets_left(flight_id=f_id, date=date))
     return jsonObj
 
+@app.route("/get-route-from-fid", methods=['GET'])
+@login_required
+def get_routes_from_fid():
+    f_id = request.args.get('f_id')
+    route = get_route_from_flight_id(f_id)
+    print('route in app.py',route)
+    return route
 
 @app.route("/book-tickets", methods=['GET', 'POST'])
 @login_required
