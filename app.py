@@ -213,6 +213,11 @@ def get_flights():
         source_city=source_city, dest_city=dest_city))
     return jsonObj
 
+@app.route("/delete-flights", methods=['GET'])
+@login_required
+def delete_flights():
+    return render_template("delete_flight.html", page_title="Delete Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
 
 @app.route("/get-tickets", methods=['GET'])
 @login_required
