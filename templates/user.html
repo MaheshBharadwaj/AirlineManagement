@@ -27,10 +27,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
 </head>
 
 <body>
+    <style>
 
+    </style>
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -47,29 +50,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="main-nav" 
-                        <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="font-size:20px; margin-top:20px">
+                    <nav class="main-nav" <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo" style="font-size:25px; margin-top:20px">
                             Vulture Aviatiors
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
-                        <ul class="nav" style="left:-25%; " >
-                            <li><a href="/"> Home </a></li>
-                            <li><a href="/search-flights"> Search Flights </a></li>
-                            <li><a href="/#about"> About us </a></li>
-                
-                            <li> 
+                        <ul class="nav">
+                            <li style="padding-right:20px; "><a href="/"> Home </a></li>
+                            <li style="padding-right:20px;"><a href="/search-flights"> Search Flights </a></li>
+                            <li style="padding-right:20px;"><a href="/#about"> About us </a></li>
+
+                            <li style="padding-right:20px;">
                                 <a href="/messages"> Messages </a>
                             </li>
-                            <li ><a href="/list-bookings"> Bookings </a></li>
+                            <li style="padding-right:20px;"><a href="/list-bookings"> Bookings </a></li>
 
 
                             <div class="logout" style="margin-top: 15px;">
-                                <a href="/logout" style="color: aliceblue;" >Logout</a>
+                                <a href="/logout" style="color: aliceblue;">Logout</a>
                             </div>
                         </ul>
-                        
+
                         <!-- ***** Menu End ***** -->
                     </nav>
                 </div>
@@ -92,6 +94,8 @@
                         <a href="/search-flights" class="main-filled-button">Book tickets</a> {% if is_agent %}
                         <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
                         <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
+
+                        <a href="/list-bookings" class="main-stroked-button">Cancel tickets</a>
                     </div>
                 </div>
             </div>
@@ -101,11 +105,14 @@
                 <div class="img-fill">
                     <img src="{{url_for('static', filename='images/slide-02.jpg')}}" alt="">
                     <div class="text-content">
-                        <h3>Hospitality at its best</h3>
-                        <h5>Get on board now!</h5>
+                        <h3>Welcome To Vulture Aviatiors</h3>
+                        <h5>World's Best First class 2021 </h5>
+                        </br>
                         <a href="/search-flights" class="main-filled-button">Book tickets</a> {% if is_agent %}
                         <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
                         <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
+
+                        <a href="/list-bookings" class="main-stroked-button">Cancel tickets</a>
                     </div>
                 </div>
             </div>
@@ -138,10 +145,10 @@
                         </div>
                     </div>
                     <div class=" col-lg-6 col-xs-12 left-text-content">
-                    <a href="/terms" style="color:white;">Terms and conditions </a></div>
+                        <a href="/terms" style="color:white;">Terms and conditions </a></div>
                 </div>
-                
-                
+
+
             </div>
         </footer>
 

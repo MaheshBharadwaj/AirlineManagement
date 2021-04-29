@@ -498,7 +498,7 @@ header
     line-height: 20px;
     border: transparent;
     letter-spacing: 1px;
-    margin: 0 0 3px 0;
+    
 }
 
 .header-area .main-nav .nav li a {
@@ -1233,4 +1233,8 @@ portfolio
     #projects .section-heading {
         margin-bottom: 0px;
     }
+}
+
+#li{
+    padding-right: 25px;
 }
