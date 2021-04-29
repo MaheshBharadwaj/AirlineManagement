@@ -27,7 +27,56 @@ def add_user_to_mongo(email: str):
         print('Exception in add user: ' + str(e))
 
 
+def request_cancel(flight_id: str, date: datetime ,email: str):
+    global client
+    try:
+        
+        user_db = client['users']
+        user_collection = user_db['usersCollection']
+        usr = user_collection.find_one({'email' : email})  
+        cancel_db = client['cancel']
+      
+        collection = cancel_db['cancelCollection']
+
+        
+        for each in usr['bookings']:
+            if(each['flight_id']==flight_id and each['date']==date):
+                
+                item = {
+                'user_id' : usr['_id'],
+                'flight_id': flight_id,
+                'e_count': each['e_count'],
+                'b_count': each['b_count'],
+                'date': date
+                }
+                if(collection.find(item)):
+                    return -1
+             
+                
+                result = collection.insert_one(item)
+                print('inserted into db',collection.find_one({'flight_id':flight_id}))
+                msg_db = client['msg']
+                msg_collection = msg_db['msgCollection']
+                msg = " Your cancel request for has been sent. Kindly wait for updates. "
+                msg_item = {'user_id': str(usr['_id']), 'message': msg, 'timestamp': str(datetime.date.today())}
+
+                msg_ob = msg_collection.find_one({'user_id': str(usr['_id'])})
+                current_msg_array = msg_ob['messages_array']
+                current_msg_array.append(msg_item)
+                msg_collection.update_one({'user_id': str(usr['_id'])}, {'$set': {'messages_array': current_msg_array}})
+                return 1
+
+            
+        
+    except Exception as e:
+        print('Exception in requesting cancel: ' + str(e))
+
+
+            
+
+
 def add_route_to_db(request):
+
     global client
     try:
         source_city = request.form.get('source_city')
@@ -167,14 +216,27 @@ def get_all_flights_by_id():
     global client
     flights = []
     try:
-        flight_db = client['flight']
-        collection = flight_db['flightCollection']
-        for each in collection.find():
-            flights.append(get_flight_by_id(each['_id']))
-        
+        flights=[]
+        user_db = client['users']
+        user_collection = user_db['usersCollection']
+        for usr in user_collection.find(): 
+            for each in usr['bookings']:
+                flight = get_flight_by_id(each['flight_id'])
+                #print('flight id: ',each['flight_id'])
+                flight['user'] = usr['email']
+                flight['e_seats']=each['e_count']
+                flight['b_seats']=each['b_count']
+                flight['date'] = each['date']
+                flight['tdate'] = each['transactionDate']
+                flight['admin'] = True
+                print(flight)
+                flights.append(flight)
+
         return flights
     except Exception as e:
-        print('Exception in get flight by id: ' + str(e))
+        print('Exception in getting user tickets: ' + str(e))
+
+
     
 
 def get_user_bookings(email : str):
@@ -191,7 +253,7 @@ def get_user_bookings(email : str):
             flight['b_seats']=each['b_count']
             flight['date'] = each['date']
             flight['tdate'] = each['transactionDate']
-            #print(flight)
+            
             flights.append(flight)
 
         return flights

@@ -301,6 +301,18 @@ def messages():
     msg_array = get_messages(current_user.email)
     return render_template("messages.html",  page_title="Messages", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), messages=msg_array)
 
+@app.route('/cancel-request', methods=['GET'])
+def cancel():
+    print('reached cancel request function')
+    flight_id = request.args.get("flight_id")
+    date = request.args.get("date")
+    flag = request_cancel(flight_id, date, current_user.email)
+    if(flag == -1):
+        print('requested already')
+        return render_template("list_bookings.html", req_already = True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    return render_template("list_bookings.html", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
