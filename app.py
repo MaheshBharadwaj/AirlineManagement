@@ -306,10 +306,14 @@ def cancel():
     print('reached cancel request function')
     flight_id = request.args.get("flight_id")
     date = request.args.get("date")
+
     flag = request_cancel(flight_id, date, current_user.email)
     if(flag == -1):
         print('requested already')
         return render_template("list_bookings.html", req_already = True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    if(flag == -2):
+        print('cancellation < 48 hrs of boarding time')
+        return render_template("list_bookings.html", insufficient_time=True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
     return render_template("list_bookings.html", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
 

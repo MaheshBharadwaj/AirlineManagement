@@ -34,9 +34,9 @@ def request_cancel(flight_id: str, date: datetime ,email: str):
         user_db = client['users']
         user_collection = user_db['usersCollection']
         usr = user_collection.find_one({'email' : email})  
-        cancel_db = client['cancel']
+        cancel_db = client['cancels']
       
-        collection = cancel_db['cancelCollection']
+        collection = cancel_db['cancelsCollection']
 
         
         for each in usr['bookings']:
@@ -49,21 +49,24 @@ def request_cancel(flight_id: str, date: datetime ,email: str):
                 'b_count': each['b_count'],
                 'date': date
                 }
-                if(collection.find(item)):
+               
+                d = datetime.date.today()
+
+                x = int(date[len(date)-2:])
+                month = int(date[len(date)-5:len(date)-3])
+                if(x - d.day < 2 and month==d.month):
+                    return -2
+                if(d.month!=month and x>=30 and d.day<=2):
+                    return -2
+                
+                if(collection.find(item).count()!=0):
+                    
                     return -1
-             
+                
                 
                 result = collection.insert_one(item)
                 print('inserted into db',collection.find_one({'flight_id':flight_id}))
-                msg_db = client['msg']
-                msg_collection = msg_db['msgCollection']
-                msg = " Your cancel request for has been sent. Kindly wait for updates. "
-                msg_item = {'user_id': str(usr['_id']), 'message': msg, 'timestamp': str(datetime.date.today())}
-
-                msg_ob = msg_collection.find_one({'user_id': str(usr['_id'])})
-                current_msg_array = msg_ob['messages_array']
-                current_msg_array.append(msg_item)
-                msg_collection.update_one({'user_id': str(usr['_id'])}, {'$set': {'messages_array': current_msg_array}})
+                
                 return 1
 
             
