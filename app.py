@@ -77,7 +77,9 @@ def index():
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html")
+    if not current_user.is_authenticated:
+        return render_template("contact.html")
+    return render_template("contact.html", user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
 
 @app.route("/sign-up", methods=['GET', 'POST'])

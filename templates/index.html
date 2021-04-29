@@ -8,87 +8,89 @@
     <p>
         <center>
             <!--<a class="btn btn-lg btn-success" href="#" role="button">Sign Up</a>-->
-            <a class="but" href="/sign-up">SIGN UP</a>
+            {% if user_logged_in %}
+            <a href="/dashboard" class="but">Dashboard</a> {% else %}
+            <a class="but" href="/sign-up">Sign Up Today!</a> {% endif %}
         </center>
     </p>
 </div>
 <section id="about1">
 
-<h1 class="why" id="about" style="float: none;">Why Choose VA?</h1>
+    <h1 class="why" id="about" style="float: none;">Why Choose VA?</h1>
 
-<div class="row" >
-    <div class="col box">
-        <h2>Affordable</h2>
-        <p>All our flights are cheapest in the country.</p>
+    <div class="row">
+        <div class="col box">
+            <h2>Affordable</h2>
+            <p>All our flights are cheapest in the country.</p>
+        </div>
+        <div class="col box">
+            <h2>Punctual</h2>
+            <p>With an award winning 95% On time record, we make you travel on time everytime!</p>
+        </div>
+        <div class="col box">
+            <h2>
+                Easy Cancellation
+            </h2>
+            <p>Cancellations made 1 week before departure are eligible for 100% refund*</p>
+        </div>
     </div>
-    <div class="col box">
-        <h2>Punctual</h2>
-        <p>With an award winning 95% On time record, we make you travel on time everytime!</p>
+    <div class="row">
+        <div class="col box">
+            <h2>
+                Comfortable
+            </h2>
+            <p>We use custom designed seats aimed to provide utmost customer comfort in our flights!</p>
+        </div>
+        <div class="col  box">
+            <h2>
+                Great Food!
+            </h2>
+            <p>We have signed MoU with SuperFoods to provide best in class food in cabin! Bon appetit!</p>
+        </div>
+        <div class="col box">
+            <h2>
+                Exceptional Staff
+            </h2>
+            <p>Our staffs have an exceptional level of service and are well trained to handle any situation.</p>
+        </div>
     </div>
-    <div class="col box">
-        <h2>
-            Easy Cancellation
-        </h2>
-        <p>Cancellations made 1 week before departure are eligible for 100% refund*</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col box">
-        <h2>
-            Comfortable
-        </h2>
-        <p>We use custom designed seats aimed to provide utmost customer comfort in our flights!</p>
-    </div>
-    <div class="col  box">
-        <h2>
-            Great Food!
-        </h2>
-        <p>We have signed MoU with SuperFoods to provide best in class food in cabin! Bon appetit!</p>
-    </div>
-    <div class="col box">
-        <h2>
-            Exceptional Staff
-        </h2>
-        <p>Our staffs have an exceptional level of service and are well trained to handle any situation.</p>
-    </div>
-</div>
 
 
 
-<!-- <h1 class="why" style="float: none;"></h1>
+    <!-- <h1 class="why" style="float: none;"></h1>
 -->
-<div class="row marketing">
-    <div class="col-lg-6">
-        <h4 style='font-size:2.5rem'>Eligibility</h4>
-        <p>
-            <ul>
-                <li> These fares are valid on direct flights and are applicable for sale in India only.</li>
-                <li>Bookings should be made at least 8 days before your intended date of travel.</li>
-                <li>The cancellation should be at least 48 hours prior to boarding time.</li>
-            </ul>
-        </p>
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4 style='font-size:2.5rem'>Eligibility</h4>
+            <p>
+                <ul>
+                    <li> These fares are valid on direct flights and are applicable for sale in India only.</li>
+                    <li>Bookings should be made at least 8 days before your intended date of travel.</li>
+                    <li>The cancellation should be at least 48 hours prior to boarding time.</li>
+                </ul>
+            </p>
 
-        <h4 style='font-size:2.5rem'>Discounts and Travel Points</h4>
-        <p>
-            <ul>
-                <li> This platform offers travel points for all customers. </li>
-                <li>The points may vary depending on the class of travel (economy - 50 pts / ticket , business - 100 pts / ticket). </li>
-                <li>This gives customer facilities like priority during reservation, bumping to business class.</li>
-            </ul>
-        </p>
+            <h4 style='font-size:2.5rem'>Discounts and Travel Points</h4>
+            <p>
+                <ul>
+                    <li> This platform offers travel points for all customers. </li>
+                    <li>The points may vary depending on the class of travel (economy - 50 pts / ticket , business - 100 pts / ticket). </li>
+                    <li>This gives customer facilities like priority during reservation, bumping to business class.</li>
+                </ul>
+            </p>
 
-        <h4 style='font-size:2.5rem'>Booking Channel</h4>
-        <p>
-            <ul>
-                <li> The booking must be made via VA website vulture_aviator.com only. </li>
-                <li> Flight schedules and timings are subject to regulatory approvals and may be revised without advance notice.</li>
-            </ul>
-        </p>
+            <h4 style='font-size:2.5rem'>Booking Channel</h4>
+            <p>
+                <ul>
+                    <li> The booking must be made via VA website vulture_aviator.com only. </li>
+                    <li> Flight schedules and timings are subject to regulatory approvals and may be revised without advance notice.</li>
+                </ul>
+            </p>
+        </div>
+
+
     </div>
-
-
-</div>
-<!-- <div class="footer-chevron">
+    <!-- <div class="footer-chevron">
     <p class="up">
         <i class="fas fa-chevron-up"></i>
     </p>
