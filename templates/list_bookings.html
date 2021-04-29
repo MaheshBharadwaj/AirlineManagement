@@ -33,12 +33,12 @@
     function renderData(reposnse) {
         
         var json = JSON.parse(reposnse);
-        if (!json) {
+        if (!json || json.length==0) {
             var item = `<div class="card text-white bg-danger list-group-item">
                 <div class="card-header">Not available!</div>
                 <div class="card-body">
-                    <h5 class="card-title">No Flights available to list</h5>
-                    <p class="card-text">Please check database!!</p>
+                    <h5 class="card-title">No Flights have been Booked!!</h5>
+                    
                     </div>
                     </div>`
             document.getElementById("searchResults").innerHTML = item;
@@ -66,17 +66,25 @@
     <h5 class="card-title">${json[i].source_city} to ${json[i].dest_city}</h5>
     <p class="card-text">Departure Time: ${json[i].d_time} HRS<br>
         Arrival Time: ${json[i].a_time} HRS<br>`
-        
+        var cost = json[i].e_seats*json[i].e_cost
         if(json[i].e_seats!=0){
             item+=`Economy Class Tickets : ${json[i].e_seats} Nos <br>
             Economy Class Ticket Cost: INR ${json[i].e_cost}<br>`
         }
+        cost+=json[i].b_seats*json[i].b_cost
         if(json[i].b_seats!=0)
         {
-            item+=` Business Class Tickets : ${json[i].b_seats} Nos <br>
+            item+=`Business Class Tickets : ${json[i].b_seats} Nos <br>
+
         
         
         Business Class Ticket Cost: INR ${json[i].b_cost}</p>`
+        }
+        if(json[i].date)
+        {
+            item+=`Date : ${json[i].date} <br>
+            Total cost: ${cost}`
+
         }
         
         
