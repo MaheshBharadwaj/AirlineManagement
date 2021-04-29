@@ -105,8 +105,9 @@ https://templatemo.com/tm-543-breezed
                         <h3>Welcome To Vulture Aviatiors</h3>
                         <h5>World's Best First class 2021 </h5>
                         </br>
-                        <a href="/search-flights" class="main-filled-button">Book tickets</a>
-                        <a href="#" class="main-stroked-button">Cancel tickets</a>
+                        <a href="/search-flights" class="main-filled-button">Book tickets</a> {% if is_agent %}
+                        <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
+                        <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
                     </div>
                 </div>
             </div>
@@ -118,8 +119,9 @@ https://templatemo.com/tm-543-breezed
                     <div class="text-content">
                         <h3>Hospitality at its best</h3>
                         <h5>Get on board now!</h5>
-                        <a href="/search-flights" class="main-filled-button">Book tickets</a>
-                        <a href="#" class="main-stroked-button">Cancel tickets</a>
+                        <a href="/search-flights" class="main-filled-button">Book tickets</a> {% if is_agent %}
+                        <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
+                        <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
                     </div>
                 </div>
             </div>

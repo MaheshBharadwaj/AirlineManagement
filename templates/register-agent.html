@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.svg')}}" type="image/svg">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/register.css')}}" />
+
+    <!-- Compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+    <!-- Compiled and minified JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+    <title>Sign Up Page</title>
+</head>
+
+<body id="particles-js"></body>
+<div class="animated bounceInDown">
+    <div class="container">
+        <span class="error animated tada" id="msg" style="top: 92%;"></span>
+        <form method="POST" name="form1" class="box" onsubmit="return checkStuff()">
+            <h4>VA Agent<span>Registration</span></h4>
+            <input type="text" name="uname" placeholder="John Doe" autocomplete="off">
+            <input type="text" name="email" id="email" placeholder="example@rocketmail.com" autocomplete="off">
+            <input type="password" name="pwd1" placeholder="Passsword (Eg: 123456)" id="pwd1" autocomplete="off">
+            <input type="password" name="pwd2" placeholder="Re-enter Passsword (Eg: 123456)" id="pwd2" autocomplete="off">
+            <!-- <label>
+          <input type="checkbox">
+          <span></span>
+          <small class="rmb">Remember me</small>
+        </label> -->
+            <!-- <a href="#" class="forgetpass">Forget Password?</a> -->
+            <input type="submit" value="Sign in" class="btn1">
+        </form>
+    </div>
+    <div class="footer">
+        <span>Made with <i class="fa fa-heart pulse"></i> by VA Tech</span>
+    </div>
+</div>
+{% if popup %}
+<script>
+    alert("Email ID already registered!")
+</script>
+{% endif %}
+<script src="https://kit.fontawesome.com/e979b53514.js" crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='js/particle.js')}}"></script>
+<script src="{{url_for('static', filename='js/register.js')}}"></script>
+
+</html>

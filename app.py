@@ -39,6 +39,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(150))
     name = db.Column(db.String(100))
     travel_points = db.Column((db.Integer()))
+    is_agent = db.Column(db.Boolean())
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -103,7 +104,30 @@ def register():
         return render_template("register.html", popup=True)
 
     user = User(id=generate_password_hash(email)
-                [34:55], email=email, name=uname)
+                [34:55], email=email, name=uname, is_agent=False)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+    add_user_to_mongo(email=email)
+    return redirect(url_for("login"))
+
+
+@app.route("/register-agent", methods=['GET', 'POST'])
+def register_agent():
+    if request.method == 'GET':
+        return render_template("register-agent.html", popup=False)
+
+    uname = request.form.get("uname")
+    email = request.form.get("email")
+    password = request.form.get("pwd1")
+    print('Email: ', email)
+    user_check = User.query.filter_by(email=email).first()
+    print('user_check: ', user_check)
+    if user_check is not None:
+        return render_template("register-agent.html", popup=True)
+
+    user = User(id=generate_password_hash(email)
+                [34:55], email=email, name=uname, is_agent=True)
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
@@ -153,7 +177,7 @@ def dashboard():
     if current_user.name == 'admin':
         return render_template("admin.html")
     else:
-        return render_template("user.html")
+        return render_template("user.html", is_agent=current_user.is_agent)
 
 
 @app.route("/admin-logout")
@@ -204,29 +228,26 @@ def search_flights():
     return render_template("search_flights.html", page_title="Search Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
 
-@app.route("/list-bookings" , methods=['GET'])
+@app.route("/list-bookings", methods=['GET'])
 @login_required
 def listing():
 
     print('reached list-bookings app.py')
     return render_template("list_bookings.html", page_title="Bookings Log", authors=authors, user_logged_in=True,  user_name=current_user.name.split()[0].capitalize())
 
-@app.route("/get-all-flights" , methods=['GET'])
+
+@app.route("/get-all-flights", methods=['GET'])
 @login_required
 def get_all_flights():
     if current_user.name == 'admin':
         #print('Admin check')
         jsonObj = jsonify(get_all_flights_by_id())
-        
-        #print(jsonObj)
+
+        # print(jsonObj)
         return jsonObj
     else:
-         jsonObj = jsonify(get_user_bookings(current_user.email))
-         return jsonObj
-
-
-
-
+        jsonObj = jsonify(get_user_bookings(current_user.email))
+        return jsonObj
 
 
 @app.route("/get-flights", methods=['GET'])
@@ -262,13 +283,15 @@ def get_tickets():
     jsonObj = jsonify(get_tickets_left(flight_id=f_id, date=date))
     return jsonObj
 
+
 @app.route("/get-route-from-fid", methods=['GET'])
 @login_required
 def get_routes_from_fid():
     f_id = request.args.get('f_id')
     route = get_route_from_flight_id(f_id)
-    print('route in app.py',route)
+    print('route in app.py', route)
     return route
+
 
 @app.route("/book-tickets", methods=['GET', 'POST'])
 @login_required
@@ -276,7 +299,7 @@ def book_tickets_method():
     if request.method == 'GET':
         flight_id = request.args.get("flight_id")
         flight = get_flight_by_id(flight_id=flight_id)
-        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), is_agent=current_user.is_agent)
     else:
         # handle ticket booking
         flight_id = request.form.get("flight_id")
@@ -287,7 +310,7 @@ def book_tickets_method():
         # print('Economy: ', economy_tickets, '\nBusiness: ', business_tickets)
         book_tickets(email=current_user.email, flight_id=flight_id,
                      b_count=business_tickets, e_count=economy_tickets, date=date)
-        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True)
+        return render_template("book_tickets.html", flight=flight, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True, is_agent=current_user.is_agent)
 
 
 @app.route('/terms', methods=['GET'])
