@@ -12,6 +12,7 @@ Table of contents
 ------------------------------------------------
 01. font & reset css
 02. reset
+
 03. global styles
 04. header
 05. banner
@@ -435,10 +436,10 @@ header
 }
 
 .logout {
-    line-height: 35px;
+    line-height: 20px;
     color: #fff;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
     float: right;
@@ -449,12 +450,13 @@ header
 }
 
 .header-area .main-nav .logo {
-    line-height: 80px;
+    line-height: 20px;
+    margin-top: 20px;
     color: #fff;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     float: left;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -464,8 +466,8 @@ header
 
 .header-area .main-nav .nav {
     float: right;
-    margin-top: 27px;
-    margin-right: 0px;
+    margin-top: 20px;
+    margin-right: 10px;
     background-color: transparent;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -476,24 +478,16 @@ header
 }
 
 .header-area .main-nav .nav li {
-    padding-left: 20px;
-    padding-right: 20px;
+
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-@media (max-width: 767px) {
-    .header-area .main-nav .nav .search-icon {
-        float: none;
-        text-align: center;
-        width: 100%;
-        background-color: #fff;
-        margin-left: 0px;
-    }
-}
 
 .header-area .main-nav .nav li a {
     display: block;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     color: #7a7a7a;
     text-transform: uppercase;
     -webkit-transition: all 0.3s ease 0s;
@@ -501,9 +495,10 @@ header
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     height: 40px;
-    line-height: 40px;
+    line-height: 20px;
     border: transparent;
     letter-spacing: 1px;
+    margin: 0 0 3px 0;
 }
 
 .header-area .main-nav .nav li a {
@@ -522,116 +517,6 @@ header
     opacity: 1;
 }
 
-.header-area .main-nav .menu-trigger {
-    cursor: pointer;
-    display: block;
-    position: absolute;
-    top: 23px;
-    width: 32px;
-    height: 40px;
-    text-indent: -9999em;
-    z-index: 99;
-    right: 40px;
-    display: none;
-}
-
-.header-area .main-nav .menu-trigger span,
-.header-area .main-nav .menu-trigger span:before,
-.header-area .main-nav .menu-trigger span:after {
-    -moz-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-    background-color: #1e1e1e;
-    display: block;
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    left: 0;
-}
-
-.background-header .main-nav .menu-trigger span,
-.background-header .main-nav .menu-trigger span:before,
-.background-header .main-nav .menu-trigger span:after {
-    background-color: #1e1e1e;
-}
-
-.header-area .main-nav .menu-trigger span:before,
-.header-area .main-nav .menu-trigger span:after {
-    -moz-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-    background-color: #1e1e1e;
-    display: block;
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    left: 0;
-    width: 75%;
-}
-
-.background-header .main-nav .menu-trigger span:before,
-.background-header .main-nav .menu-trigger span:after {
-    background-color: #1e1e1e;
-}
-
-.header-area .main-nav .menu-trigger span:before,
-.header-area .main-nav .menu-trigger span:after {
-    content: "";
-}
-
-.header-area .main-nav .menu-trigger span {
-    top: 16px;
-}
-
-.header-area .main-nav .menu-trigger span:before {
-    -moz-transform-origin: 33% 100%;
-    -ms-transform-origin: 33% 100%;
-    -webkit-transform-origin: 33% 100%;
-    transform-origin: 33% 100%;
-    top: -10px;
-    z-index: 10;
-}
-
-.header-area .main-nav .menu-trigger span:after {
-    -moz-transform-origin: 33% 0;
-    -ms-transform-origin: 33% 0;
-    -webkit-transform-origin: 33% 0;
-    transform-origin: 33% 0;
-    top: 10px;
-}
-
-.header-area .main-nav .menu-trigger.active span,
-.header-area .main-nav .menu-trigger.active span:before,
-.header-area .main-nav .menu-trigger.active span:after {
-    background-color: transparent;
-    width: 100%;
-}
-
-.header-area .main-nav .menu-trigger.active span:before {
-    -moz-transform: translateY(6px) translateX(1px) rotate(45deg);
-    -ms-transform: translateY(6px) translateX(1px) rotate(45deg);
-    -webkit-transform: translateY(6px) translateX(1px) rotate(45deg);
-    transform: translateY(6px) translateX(1px) rotate(45deg);
-    background-color: #1e1e1e;
-}
-
-.background-header .main-nav .menu-trigger.active span:before {
-    background-color: #1e1e1e;
-}
-
-.header-area .main-nav .menu-trigger.active span:after {
-    -moz-transform: translateY(-6px) translateX(1px) rotate(-45deg);
-    -ms-transform: translateY(-6px) translateX(1px) rotate(-45deg);
-    -webkit-transform: translateY(-6px) translateX(1px) rotate(-45deg);
-    transform: translateY(-6px) translateX(1px) rotate(-45deg);
-    background-color: #1e1e1e;
-}
-
-.background-header .main-nav .menu-trigger.active span:after {
-    background-color: #1e1e1e;
-}
 
 .header-area.header-sticky {
     min-height: 80px;
@@ -647,13 +532,14 @@ header
 
 @media (max-width: 1200px) {
     .header-area .main-nav .nav li {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .header-area .main-nav:before {
         display: none;
     }
 }
+
 
 @media (max-width: 767px) {
     .header-area .main-nav .logo {
@@ -664,25 +550,19 @@ header
         color: #5fb759!important;
         opacity: 1;
     }
-    .header-area.header-sticky .nav li.search-icon a {
-        width: 100%;
-    }
+    
     .header-area {
         background-color: #f7f7f7;
-        padding: 0px 15px;
+        padding: 10px 10px;
         height: 80px;
         box-shadow: none;
         text-align: center;
     }
     .header-area .container {
-        padding: 0px;
+        padding: 10px;
     }
-    .header-area .logo {
-        margin-left: 30px;
-    }
-    .header-area .menu-trigger {
-        display: block !important;
-    }
+    
+    
     .header-area .main-nav {
         overflow: hidden;
     }
@@ -706,13 +586,15 @@ header
         width: 100%;
         background: #fff;
         border-bottom: 1px solid #eee;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     .header-area .main-nav .nav li a {
         height: 50px !important;
         line-height: 50px !important;
-        padding: 0px !important;
+        padding: 10px !important;
+        padding-left: 20px;
+        padding-right: 20px;
         border: none !important;
         background: #f7f7f7 !important;
         color: #191a20 !important;
