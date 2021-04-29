@@ -65,11 +65,12 @@
                                 <a href="/messages"> Messages </a>
                             </li>
                             <li style="padding-right:20px;"><a href="/list-bookings"> Bookings </a></li>
+                            <li style="padding-right:20px;"><a href="/logout"> Logout </a></li>
 
 
-                            <div class="logout" style="margin-top: 15px;">
+                            <!-- <div class="logout" style="margin-top: 15px;">
                                 <a href="/logout" style="color: aliceblue;">Logout</a>
-                            </div>
+                            </div> -->
                         </ul>
 
                         <!-- ***** Menu End ***** -->
@@ -94,8 +95,6 @@
                         <a href="/search-flights" class="main-filled-button">Book tickets</a> {% if is_agent %}
                         <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
                         <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
-
-                        <a href="/list-bookings" class="main-stroked-button">Cancel tickets</a>
                     </div>
                 </div>
             </div>
@@ -112,7 +111,6 @@
                         <a onclick="alert('Agents cannot request for cancellation!');" class="main-stroked-button">Cancel tickets </a> {% else %}
                         <a href="#" class="main-stroked-button">Cancel tickets</a> {% endif%}
 
-                        <a href="/list-bookings" class="main-stroked-button">Cancel tickets</a>
                     </div>
                 </div>
             </div>

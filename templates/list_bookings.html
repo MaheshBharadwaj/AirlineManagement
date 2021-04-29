@@ -22,8 +22,7 @@
 <script>
     $("#exampleModal").modal('show');
 </script>
-{% endif %}
-{%if req_already %}
+{% endif %} {%if req_already %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -46,11 +45,58 @@
 <script>
     $("#exampleModal").modal('show');
 </script>
+{% endif %} {% if is_agent %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                Agents cannot request cancellation. Please refer terms and conditions.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#exampleModal").modal('show');
+</script>
+{% endif %} {%if succesfully_sent %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                Successfully Requested for cancellation. Please check
+                <a href="/messages" style="text-decoration: underline;"> messages</a> for further updates
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#exampleModal").modal('show');
+</script>
 {% endif %}
 
 <div class="form-container">
     <div class="jumbotron">
-    
+
         <h1 class="display-4 text-dark text-center">Bookings - log</h1>
         <br>
         <p class="lead text-center">
@@ -62,25 +108,24 @@
 </div>
 {% endblock %}{% block nav_active %}
 <script>
-    function listFlights()
-    {
-        
+    function listFlights() {
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 renderData(this.responseText)
             }
         };
-         xhttp.open("GET", "get-all-flights", true);
+        xhttp.open("GET", "get-all-flights", true);
         xhttp.send();
 
-        
-    } 
+
+    }
 
     function renderData(reposnse) {
-        
+
         var json = JSON.parse(reposnse);
-        if (!json || json.length==0) {
+        if (!json || json.length == 0) {
             var item = `<div class="card text-white bg-danger list-group-item">
                 <div class="card-header">Not available!</div>
                 <div class="card-body">
@@ -91,7 +136,7 @@
             document.getElementById("searchResults").innerHTML = item;
             return;
         }
-        
+
         var html = ""
         var count = json.length;
         for (let i = 0; i < count; i++) {
@@ -106,7 +151,7 @@
             var url = "/get-route-from-fid?f_id" + json[i].f_id;
             xhttp.open("GET", url, true);
             xhttp.send();*/
-            
+
             var item = `<div class="card text-white list-group-item" style="background-color:#657BF3;" >
   <h5 class="card-header">Flight ID: ${json[i].f_id}</h5>
   <div class="card-body">
@@ -114,34 +159,32 @@
     <h5 class="card-title">${json[i].source_city} to ${json[i].dest_city}</h5>
     <p class="card-text">Departure Time: ${json[i].d_time} HRS<br>
         Arrival Time: ${json[i].a_time} HRS<br>`
-        var cost = json[i].e_seats*json[i].e_cost
-        if(json[i].e_seats!=0){
-            item+=`Economy Class Tickets : ${json[i].e_seats} Nos <br>
+            var cost = json[i].e_seats * json[i].e_cost
+            if (json[i].e_seats != 0) {
+                item += `Economy Class Tickets : ${json[i].e_seats} Nos <br>
             Economy Class Ticket Cost: INR ${json[i].e_cost}<br>`
-        }
-        cost+=json[i].b_seats*json[i].b_cost
-        if(json[i].b_seats!=0)
-        {
-            item+=`Business Class Tickets : ${json[i].b_seats} Nos <br>
+            }
+            cost += json[i].b_seats * json[i].b_cost
+            if (json[i].b_seats != 0) {
+                item += `Business Class Tickets : ${json[i].b_seats} Nos <br>
 
         
         
         Business Class Ticket Cost: INR ${json[i].b_cost}</p>`
-        }
-        item+=`Date : ${json[i].date} <br>
+            }
+            item += `Date : ${json[i].date} <br>
             Total cost: ${cost}`
-        if(json[i].admin!=true)
-        {
-            item+=`
-            <br><a href="/cancel-request?flight_id=${json[i]._id}&date=${json[i].date}" class="btn btn-primary bg-danger" >Request Cancel</a>`
+            if (json[i].admin != true) {
+                item += `
+            <br><a id="cancel-btn" href="/cancel-request?flight_id=${json[i]._id}&date=${json[i].date}" class="btn btn-primary bg-danger" >Request Cancel</a>`
 
-        }
-        
-        
-       
+            }
 
-    
-  item+=`</div>
+
+
+
+
+            item += `</div>
 </div><br><br>`
             html += item;
         }

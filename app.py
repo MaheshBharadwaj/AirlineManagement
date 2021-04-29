@@ -29,7 +29,7 @@ login_manager.login_view = "login"
 login_manager.init_app(app)
 
 authors = [{'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'},
-           {'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'}, {'name': 'Mahesh', 'github': 'https://github.com/MaheshBharadwaj'}]
+           {'name': 'Madhumithaa', 'github': 'https://github.com/Madhu-25'}, {'name': 'Pooja', 'github': 'https://github.com/NachammaiPooja'}]
 
 
 class User(UserMixin, db.Model):
@@ -75,15 +75,6 @@ def index():
         )
 
 
-'''
-
-@app.route("/about")
-def about():
-    return render_template("index.html#about")
-
-'''
-
-
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -97,9 +88,9 @@ def register():
     uname = request.form.get("uname")
     email = request.form.get("email")
     password = request.form.get("pwd1")
-    print('Email: ', email)
+    # print('Email: ', email)
     user_check = User.query.filter_by(email=email).first()
-    print('user_check: ', user_check)
+    # print('user_check: ', user_check)
     if user_check is not None:
         return render_template("register.html", popup=True)
 
@@ -120,9 +111,9 @@ def register_agent():
     uname = request.form.get("uname")
     email = request.form.get("email")
     password = request.form.get("pwd1")
-    print('Email: ', email)
+    # print('Email: ', email)
     user_check = User.query.filter_by(email=email).first()
-    print('user_check: ', user_check)
+    # print('user_check: ', user_check)
     if user_check is not None:
         return render_template("register-agent.html", popup=True)
 
@@ -144,7 +135,7 @@ def login():
 def login_post():
     email = request.form.get("email")
     password = request.form.get("password")
-    print("password: ", password)
+    # print("password: ", password)
     remember = True  # if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
@@ -204,11 +195,6 @@ def add_route():
         return render_template("403.html"), 403
 
 
-# @app.route('/contact-test')
-# def contact_test():
-#     return render_template("dummy.html")
-
-
 @app.route("/add-flight", methods=['GET', 'POST'])
 @login_required
 def add_flight():
@@ -232,7 +218,7 @@ def search_flights():
 @login_required
 def listing():
 
-    print('reached list-bookings app.py')
+    # print('reached list-bookings app.py')
     return render_template("list_bookings.html", page_title="Bookings Log", authors=authors, user_logged_in=True,  user_name=current_user.name.split()[0].capitalize())
 
 
@@ -240,7 +226,7 @@ def listing():
 @login_required
 def get_all_flights():
     if current_user.name == 'admin':
-        #print('Admin check')
+        # print('Admin check')
         jsonObj = jsonify(get_all_flights_by_id())
 
         # print(jsonObj)
@@ -263,14 +249,16 @@ def get_flights():
 @app.route("/delete-flights", methods=['GET'])
 @login_required
 def delete_flights():
-    return render_template("delete_flight.html", page_title="Delete Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    if current_user.name == 'admin':
+        return render_template("delete_flight.html", page_title="Delete Flights", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    return render_template("403.html"), 403
 
 
 @app.route("/remove", methods=['GET', 'POST'])
 @login_required
 def remove():
     flight_id = request.args.get("flight_id")
-    #flight = get_flight_by_id(flight_id=flight_id)
+    # flight = get_flight_by_id(flight_id=flight_id)
     if(delete_flight(flight_id)):
         return render_template("delete_flight.html", user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), popup_success=True)
 
@@ -289,7 +277,7 @@ def get_tickets():
 def get_routes_from_fid():
     f_id = request.args.get('f_id')
     route = get_route_from_flight_id(f_id)
-    print('route in app.py', route)
+    # print('route in app.py', route)
     return route
 
 
@@ -315,7 +303,7 @@ def book_tickets_method():
 
 @app.route('/terms', methods=['GET'])
 def terms():
-    return render_template("terms.html", page_title='Terms and Conditions', user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    return render_template("terms.html", page_title='Terms and Conditions', authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
 
 @app.route('/messages', methods=['GET'])
@@ -324,21 +312,55 @@ def messages():
     msg_array = get_messages(current_user.email)
     return render_template("messages.html",  page_title="Messages", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), messages=msg_array)
 
+
 @app.route('/cancel-request', methods=['GET'])
 def cancel():
-    print('reached cancel request function')
+    # print('reached cancel request function')
     flight_id = request.args.get("flight_id")
     date = request.args.get("date")
-
+    if current_user.is_agent:
+        # print('User is agent!')
+        return render_template("list_bookings.html",  authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize(), is_agent=True)
     flag = request_cancel(flight_id, date, current_user.email)
     if(flag == -1):
-        print('requested already')
-        return render_template("list_bookings.html", req_already = True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+        # print('requested already')
+        return render_template("list_bookings.html", req_already=True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
     if(flag == -2):
-        print('cancellation < 48 hrs of boarding time')
+        # print('cancellation < 48 hrs of boarding time')
         return render_template("list_bookings.html", insufficient_time=True, authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
-    return render_template("list_bookings.html", authors=authors, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+    return render_template("list_bookings.html", authors=authors, succesfully_sent=True, user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
 
+
+@app.route('/list-cancellations', methods=['GET'])
+@login_required
+def list_cancellations():
+    if current_user.name == 'admin':
+        return render_template("list_cancellations.html", authors=authors, page_title='Cancel Requests', user_logged_in=True, user_name=current_user.name.split()[0].capitalize())
+
+    return render_template("403.html"), 403
+
+
+@app.route('/handle-request', methods=['GET'])
+@login_required
+def handle_cancel():
+    if current_user.name == 'admin':
+        status = request.args.get('status')
+        c_id = request.args.get('c_id')
+        handle_cancellation(status=status, c_id=c_id)
+
+        if status == 'approve':
+            return render_template("list_cancellations.html", user_logged_in=True, user_name="Admin", popup=True, popup_title='Approved!', popup_content='Approved request and processing refund!')
+
+        return render_template("list_cancellations.html", user_logged_in=True, user_name="Admin", popup=True, popup_title='Rejected!', popup_content='Rejected request and notified user')
+
+    return render_template("403.html"), 403
+
+
+@app.route('/get-cancellations', methods=['GET'])
+@login_required
+def get_cancellations():
+    cancellations = jsonify(get_all_cancellations())
+    return cancellations
 
 
 if __name__ == "__main__":
