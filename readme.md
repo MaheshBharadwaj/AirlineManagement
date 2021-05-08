@@ -1,6 +1,13 @@
 # Online Airline Management System
 This repository contains the source code for the online airline management system developed using flask framework and written in python3.
 
+## How to run
+ - pip install -r requirements.txt
+ - python3 app.py to start the server
+ - Set admin account password in `test.py`
+ - python3 test.py to set admin credentials
+ - update url in `helpers.py` with credentials for mongodb
+
 ## User Features
  - Search for flights
  - Book tickets
